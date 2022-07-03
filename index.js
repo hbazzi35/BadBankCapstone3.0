@@ -35,7 +35,7 @@ app.get('/account/all', function (req, res) {
         res.send(docs);
     });
 });
-
+//re
 // user verification / login
 app.get('/account/login/:email/:password', function (req, res){
     dal.login(req.params.email, req.params.password)
