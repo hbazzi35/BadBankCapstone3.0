@@ -1,0 +1,202 @@
+.home-background {
+  background-position: top center;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+
+}
+
+.home-background::before {
+  background-image: url("../public/manifest.json");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.75;
+}
+.brand-text {
+  
+  background: -webkit-linear-gradient(#ff0202, #c90101);
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.brand-background {
+  background-image: linear-gradient(#000000, #f91100) !important;
+  color: rgb(255, 255, 255) !important;
+  letter-spacing: 1px;
+}
+
+.brand-button {
+  background-image: linear-gradient(#ff0000, #ff0000) !important;
+  color: rgb(255, 0, 0) !important;
+  border: 1px solid #fc0202;
+}
+
+.brand-button:disabled {
+  cursor: not-allowed;
+}
+
+.brand-button:hover {
+  background-image: linear-gradient(#e3fcef, #fff) !important;
+  color: #fe0101 !important;
+  border: 1px solid #ff0808;
+}
+
+.brand-centered {
+  margin: auto;
+}
+
+.brand-margin-top {
+  margin-top: 80px;
+}
+
+.brand-active {
+  border-bottom: 2px solid #ff0000;
+  border-top: 2px solid #ff0000;
+  color: #ff0000 !important;
+  font-weight: bold !important;
+  top: 0;
+}
+
+.nav-link.active{
+  border-bottom: 2px solid #ff0000;
+  border-top: 2px solid #ff0000;
+  color: #ff0000 !important;
+  font-weight: bold !important;
+  top: 0;
+}
+
+.brand-table {
+  width: 100%;
+}
+
+.brand-table-th {
+  width: 30%;
+  border-bottom: 2px solid #fc0505;
+  text-align: center;
+}
+
+.brand-table-td {
+  width: 30%;
+  border-bottom: 0.01em solid rgba(100, 112, 129, 0.25);
+  text-align: center;
+}
+
+.amount-input {
+  text-align: right;
+}
+
+.balance-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.balance-title {
+  width: 50%;
+  float: left;
+}
+
+.balance-amount {
+  width: 50%;
+  margin-left: 200px;
+  text-align: right;
+  font-weight: bolder;
+}
+
+.label-title {
+  width: 50%;
+  float: left;
+  padding-top: 5px;
+}
+
+.amount-container {
+  width: 50%;
+  margin-left: 50%;
+}
+
+.brand-complimentary-color {
+  background-color: #ddeecb;
+}
+
+/*nav menu hover */
+#navbarNav {
+  /*transition: all 0.5s;*/
+  backface-visibility: hidden;
+  border-color: transparent transparent #ff0404 transparent;
+  bottom: 0px;
+  content: " ";
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  transition: all 280ms ease-in-out;
+}
+
+#navbarNav {
+  color:#ff0000;
+  font-weight: bold;
+}
+
+/* collapse.navbar-collapse */
+#navbarNav.collapse.navbar-collapse ul li a {
+  position: relative;
+}
+#navbarNav.collapse.navbar-collapse ul li a:after,
+#navbarNav.collapse.navbar-collapse ul li a:before,
+#navbarNav ul li a:before,
+#navbarNav ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ".";
+  color: transparent;
+  background-image: linear-gradient(#ff0101, #fc0505);
+  height: 2px;
+}
+#navbarNav.collapse.navbar-collapse ul li a:hover:before,
+#navbarNav.collapse.navbar-collapse ul li a:hover:after {
+  width: 100%;
+}
+
+#navbarNav ul li a {
+  transition: all 1s;
+}
+
+#navbarNav ul li a:before,
+#navbarNav ul li a:after {
+  text-align: left;
+  content: ".";
+  margin: 0;
+  opacity: 0;
+}
+#navbarNav ul li a:hover {
+  color: #ff0202;
+  z-index: 1;
+}
+
+#navbarNav ul li a:hover:before,
+#navbarNav ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  opacity: 1;
+}
+
+#navbarNav ul li a:hover:before {
+  bottom: auto !important;
+  top: 0;
+  width: 100% !important;
+}
+
+
