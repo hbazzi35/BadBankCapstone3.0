@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
-
   },
   "keywords": [],
   "author": "bazzih3519@gmail.com",
@@ -17,6 +16,7 @@
     "firebase": "^9.8.4",
     "git": "^0.1.5",
     "mongodb": "^4.7.0",
+    "mongoose": "^6.4.2",
     "nodemon": "^1.19.4"
   }
 }
