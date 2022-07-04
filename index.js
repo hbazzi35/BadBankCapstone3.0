@@ -7,8 +7,8 @@ const cors = require('cors');
 app.use(express.static('public'));
 app.use(cors());
 
-const uri = "mongodb+srv://bishalpandit:RuLdJrrHtGCpkXR2@cluster0.flu4x.mongodb.net/delfoody?retryWrites=true&w=majority";
-
+const uri = "mongodb+srv://Hassan:Bazzi7721@cluster0.bm06i.mongodb.net/?retryWrites=true&w=majority";
+//"mongodb+srv://bishalpandit:RuLdJrrHtGCpkXR2@cluster0.flu4x.mongodb.net/delfoody?retryWrites=true&w=majority"
 async function connect() {
     try {
         await mongoose.connect(uri);
