@@ -1,75 +1,151 @@
-var express = require('express');
-var app     = express();
-var cors    = require('cors');
-var dal     = require('./dal.js');
-const router = express.Router();
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const cors = require('cors');
 
 // used to serve static files from the public directory
 app.use(express.static('public'));
 app.use(cors());
 
+const uri = "mongodb+srv://bazzih3519:Bazzi12345@badbank1.wdzpz.mongodb.net/?retryWrites=true&w=majority";
+
+async function connect() {
+    try {
+        await mongoose.connect(uri);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+connect();
+
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    balance: Number,
+});
+
+const User = mongoose.model("User", userSchema);
+
+
 // create user account (echo it to calling client)
-app.get('/account/create/:name/:email/:password', function (req, res) {
-    // else create user
-    dal.create(req.params.name, req.params.email, req.params.password)
-        .then((user) =>{
-        //console.log(user);
-        res.send(user);
-    });
+app.get('/account/create/:name/:email/:password', async (req, res) => {
+    try {
+        const name = req.params.name, email = req.params.email, password = req.params.password;
+
+        const user = await User.create({
+            name,
+            email,
+            password,
+            balance: 0
+        });
+
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 // all user data
-app.get('/account/userdata/:email/:password', function (req, res) {
-    dal.userdata().
-        then((docs) => {
-        console.log(docs);
-        res.send(docs);
-    })
+app.get('/account/userdata/:email/:password', async (req, res) => {
+    try {
+        const email = req.params.email;
+
+        const user = await User.find({ email });
+
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 // all accounts
-app.get('/account/all', function (req, res) {
-    dal.all().
-        then((docs) => {
-        //console.log(docs);
-        res.send(docs);
-    });
+app.get('/account/all', async (req, res) => {
+    try {
+        const users = await User.find({});
+
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+    }
 });
-//re
+
 // user verification / login
-app.get('/account/login/:email/:password', function (req, res){
-    dal.login(req.params.email, req.params.password)
-    .then((user) => {
-    //console.log(user);
-    res.send(user);
-    });
+app.get('/account/login/:email/:password', async (req, res) => {
+    try {
+        const email = req.params.email, password = req.params.password;
+
+        const userExists = await User.findOne({ email: email });
+
+        if (!userExists) {
+            res.status(400);
+            res.send("User doesn't exist");
+            return;
+        }
+
+
+        if(userExists.password !== password) {
+            res.status(400);
+            res.send("Password mismatch");
+            return;
+        }
+
+        res.json(userExists);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-app.get('/account/deposit/:email/:amount', function (req, res){
-    dal.deposit(req.params.email, req.params.amount)
-    .then((user) => {
-    console.log(user);
-    res.send(user);
-    });
+app.get('/account/deposit/:email/:amount', async (req, res) => {
+    try {
+        const email = req.params.email, amount = req.params.amount;
+
+        const user = await User.findOne({ email });
+
+        user.balance = user.balance + amount;
+        await user.save();
+
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-app.get('/account/withdraw/:email/:amount', function (req, res){
-    dal.withdraw(req.params.email, req.params.amount)
-    .then((user) => {
-    console.log(user);
-    res.send(user);
-    });
+app.get('/account/withdraw/:email/:amount', async (req, res) => {
+    try {
+        const email = req.params.email, amount = req.params.amount;
+
+        const user = await User.findOne({ email });
+
+        if (user.balance - amount < 0) {
+            res.status(200);
+            res.send("Balance not enough to withdraw");
+            return;
+        }
+
+        user.balance = user.balance - amount;
+        await user.save();
+
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-app.get('/acount/destroy/:email',function (req, res){
-    dal.destroy(req.params.email)
-    .then((user) => {
-    console.log(user);
-    res.send(user);
-    })
+app.get('/acount/destroy/:email', async (req, res) => {
+    try {
+        const email = req.params.email;
+        const user = await User.deleteOne({ email: email });
+
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
 
