@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(express.static('public'));
 app.use(cors());
 
-const uri = "mongodb+srv://bazzih3519:Bazzi12345@badbank2.wdzpz.mongodb.net/badbank?retryWrites=true&w=majority";
+const uri = "mongodb+srv://bishalpandit:RuLdJrrHtGCpkXR2@cluster0.flu4x.mongodb.net/delfoody?retryWrites=true&w=majority";
 
 async function connect() {
     try {
